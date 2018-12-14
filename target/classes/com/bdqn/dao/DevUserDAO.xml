@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bdqn.dao.DevUserDAO">
+ <resultMap type="DevUser" id="userMap">
+  <id column="dev_id" property="devId" javaType="int"/>
+  <result property="devName" column="dev_name" javaType="String"/>
+  <result property="devNickName" column="dev_nickname" javaType="String"/>
+  <result property="devPassword" column="dev_password" javaType="String"/>
+ </resultMap>
+ <select id="findDevUserByDevName" resultMap="userMap">
+ 	SELECT * FROM dev_user WHERE dev_name = 'test001'
+ </select>
+</mapper>
