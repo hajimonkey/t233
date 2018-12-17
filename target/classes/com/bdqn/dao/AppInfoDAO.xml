@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bdqn.dao.AppInfoDAO">
+ <resultMap type="AppInfo" id="appInfoMap">
+ 	<id property="appId" column="app_id" javaType="int"/>
+<result property="appSoftwarename" column="app_softwarename" javaType="java.lang.String"/>
+<result property="appApkname" column="app_apkname" javaType="java.lang.String"/>
+<result property="appRom" column="app_rom" javaType="java.lang.String"/>
+<result property="appLanguage" column="app_language" javaType="java.lang.String"/>
+<result property="appSize" column="app_size" javaType="int"/>
+<result property="appDowncount" column="app_downcount" javaType="int"/>
+<result property="appPlateform" column="app_plateform" javaType="int"/>
+<result property="appCatelevel1" column="app_catelevel1" javaType="int"/>
+<result property="appCatelevel2" column="app_catelevel2" javaType="int"/>
+<result property="appCatelevel3" column="app_catelevel3" javaType="int"/>
+<result property="appState" column="app_state" javaType="int"/>
+<result property="appDesc" column="app_desc" javaType="java.lang.String"/>
+<result property="appLogo" column="app_logo" javaType="java.lang.String"/>
+<result property="appCreatedby" column="app_createdby" javaType="int"/>
+<result property="appCreationdate" column="app_creationdate" javaType="java.util.Date"/>
+<result property="appModifyby" column="app_modifyby" javaType="int"/>
+<result property="appModifydate" column="app_modifydate" javaType="java.util.Date"/>
+<result property="appLastversion" column="app_lastversion" javaType="java.lang.String"/>
+<result property="plateformname" column="plateformname" javaType="java.lang.String"/>
+<result property="statename" column="statename" javaType="java.lang.String"/>
+<result property="catelv1name" column="catelv1name" javaType="java.lang.String"/>
+<result property="catelv2name" column="catelv2name" javaType="java.lang.String"/>
+<result property="catelv3name" column="catelv3name" javaType="java.lang.String"/>
+ </resultMap>
+ <select id="findAppInfoList" resultMap="appInfoMap">
+ 	SELECT * FROM view_appinfo
+	<where>
+	 <if test="appCreatedby != 0">
+	 	AND app_createdby = #{appCreatedby}
+	 </if>
+	 <if test="appSoftwarename != null">
+	 	AND app_softwarename LIKE CONCAT('%',#{appSoftwarename},'%')
+	 </if>
+	 <if test="appState != 0">
+	 	AND app_state = #{appState}
+	 </if>
+	 <if test="appPlateform != 0">
+	 	AND app_plateform = #{appPlateform}
+	 </if>
+	 <if test="appCatelevel1 != 0">
+	  	AND app_catelevel1 = #{appCatelevel1}
+	 </if>
+	 <if test="appCatelevel2 != 0">
+	 	AND app_catelevel2 = #{appCatelevel2}
+	 </if>
+	 <if test="appCatelevel3 != 0">
+	 	AND app_catelevel3 = #{appCatelevel3}
+	 </if>
+	</where>	
+	limit #{startIndex},#{rows} 
+ </select>
+
+ <select id="findAppInfoCount" resultType="int">
+ 	SELECT count(1) FROM view_appinfo
+	<where>
+	 <if test="appCreatedby != 0">
+	 	AND app_createdby = #{appCreatedby}
+	 </if>
+	 <if test="appSoftwarename != null">
+	 	AND app_softwarename LIKE CONCAT('%',#{appSoftwarename},'%')
+	 </if>
+	 <if test="appState != 0">
+	 	AND app_state = #{appState}
+	 </if>
+	 <if test="appPlateform != 0">
+	 	AND app_plateform = #{appPlateform}
+	 </if>
+	 <if test="appCatelevel1 != 0">
+	  	AND app_catelevel1 = #{appCatelevel1}
+	 </if>
+	 <if test="appCatelevel2 != 0">
+	 	AND app_catelevel2 = #{appCatelevel2}
+	 </if>
+	 <if test="appCatelevel3 != 0">
+	 	AND app_catelevel3 = #{appCatelevel3}
+	 </if>
+	</where>	
+	
+ </select>
+
+ <resultMap type="DataDictionary" id="ddMap">
+ 	<result property="dictValue" column="dict_value" javaType="int"/>
+ 	<result property="dictText" column="dict_text" javaType="java.lang.String"/>
+ </resultMap>
+ <select id="findDataDic" resultMap="ddMap">
+ 	SELECT * FROM data_dictionary dd
+	WHERE dd.`dict_type`= #{dictType}
+ </select>
+<resultMap type="AppCategory" id="cateMap">
+	<id property="cateId" column="cate_id" javaType="int"/>
+	<result property="cateName" column="cate_name" javaType="java.lang.String"/>
+	<result property="catePid" column="cate_pid" javaType="int"/>
+</resultMap>
+ <select id="findAppCateByPid" resultMap="cateMap">
+ 	SELECT * FROM app_category ac
+	WHERE ac.cate_pid = #{pid}
+ </select>
+
+
+
+</mapper>
