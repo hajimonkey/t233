@@ -21,7 +21,7 @@
 	<div class="login_wrapper">
 		<div class="animate form login_form">
           <section class="login_content">
-            <form action="${pageContext.request.contextPath }/devLogin" method="post">
+            <form  method="post">
               <h1>APP开发者平台</h1>
               <div>
                 <input name="devName" type="text" class="form-control" placeholder="Username" required="" />

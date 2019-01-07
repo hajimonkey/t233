@@ -54,6 +54,7 @@ PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
 	 	AND app_catelevel3 = #{appCatelevel3}
 	 </if>
 	</where>	
+	order by app_creationdate desc
 	limit #{startIndex},#{rows} 
  </select>
 
@@ -102,6 +103,100 @@ PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
  	SELECT * FROM app_category ac
 	WHERE ac.cate_pid = #{pid}
  </select>
+
+ <insert id="save">
+ 	INSERT INTO appinfo
+	(app_softwarename,app_apkname,
+	app_rom,app_language,
+	app_size,app_downcount,
+	app_plateform,app_catelevel1
+	,app_catelevel2,app_catelevel3
+	,app_state,app_desc,app_logo
+	,app_createdby ,app_creationdate)
+	VALUES(#{appSoftwarename},#{appApkname},
+	#{appRom},#{appLanguage},#{appSize},
+	#{appDowncount},#{appPlateform},
+	#{appCatelevel1},#{appCatelevel2}
+	,#{appCatelevel3},#{appState},
+	#{appDesc},#{appLogo},
+	#{appCreatedby},#{appCreationdate})
+ </insert>
+
+ <select id="findById" resultMap="appInfoMap">
+ 	SELECT ai.*,dd.`dict_text` statename FROM appinfo ai,data_dictionary dd
+	WHERE ai.`app_state` = dd.`dict_value` AND
+	dd.`dict_type` = '应用状态'
+	AND app_id = #{appid}
+ </select>
+
+ <update id="update">
+ 	UPDATE appinfo 
+   <set>
+     <if test="appSoftwarename != null">
+     	app_softwarename = #{appSoftwarename} , 
+     </if>
+     <if test="appRom != null">
+     	app_rom = #{appRom}, 
+     </if>
+     <if test="appLanguage != null">
+     	app_language = #{appLanguage}, 
+     </if>
+     <if test="appSize != 0">
+     	app_size = #{appSize}, 
+     </if>
+     <if test="appDowncount != 0">
+     	app_downcount = #{appDowncount},
+     </if>
+     <if test="appPlateform != 0">
+     	app_plateform = #{appPlateform}, 
+     </if>
+     <if test="appCatelevel1 != 0">
+     	app_catelevel1 = #{appCatelevel1},
+     </if>
+     <if test="appCatelevel2 != 0">
+     	app_catelevel2 = #{appCatelevel2},
+     </if>
+     <if test="appCatelevel3 != 0">
+     	app_catelevel3 = #{appCatelevel3},
+     </if>
+     <if test="appDesc != null">
+     	app_desc = #{appDesc},
+     </if>
+     <if test="appLogo != null">
+     	app_logo=#{appLogo},
+     </if>
+     <if test="appModifyby != 0">
+     	app_modifyby=#{appModifyby},
+     </if>
+     <if test="appModifydate != null">
+     	app_modifydate = #{appModifydate}
+     </if>
+   </set>
+	WHERE app_id = #{appId}
+ </update>
+
+ <select id="findVersionApk" resultType="String">
+ 	SELECT ver_apk FROM appversion
+	WHERE ver_appid = #{appId}
+ </select>
+ <delete id="deleteVersion">
+	DELETE FROM appversion
+	WHERE ver_appid = #{appId}
+ </delete>
+ <delete id="deleteApp">
+	DELETE FROM appinfo
+	WHERE app_id = #{appId}
+ </delete>
+
+ <update id="updateAppState">
+ 	UPDATE appinfo SET app_state = #{appState}
+	WHERE app_id = #{appId}
+ </update>
+
+ <update id="updateAppLastVersion">
+ 	update appinfo set app_lastversion = #{lastVersion}
+ 	where app_id = #{appId}
+ </update>
 
 
 

@@ -22,13 +22,7 @@
 	                           name="appSoftwarename" 
 	                            class="form-control col-md-7 col-xs-12"
 	                            value="${softwareName }">
-	                        </div>
-	                        <label class="control-label col-md-3 col-sm-3 col-xs-12">APP状态</label>
-                        	<div class="col-md-3 col-sm-3 col-xs-12">
-                          <select id="appState" name="appState" class="form-control">
-                            <option value="0">请选择</option>
-                          </select>
-                        </div>
+	                        </div>	                        
 	                      </div>
                       	<div class="form-group">
                         
@@ -101,31 +95,7 @@
                       		 <td>${app.appLastversion }</td>
                       		 <td>
                       		 	<div class="btn-group">
-			                      <button type="button" class="btn btn-danger">点击操作</button>
-			                      <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-			                        <span class="caret"></span>
-			                        <span class="sr-only">Toggle Dropdown</span>
-			                      </button>
-			                      <ul class="dropdown-menu" role="menu">
-			                        <c:if test="${app.appState==2 || app.appState==5 }">
-			                        <li><a class="onsale" href="javascript:" data-id="${app.appId}">上架</a>
-			                        </li>
-			                        </c:if>
-			                        <c:if test="${app.appState ==4 }">
-			                        <li><a class="offsale" href="javascript:" data-id="${app.appId}">下架</a>
-			                        </li>
-			                        </c:if>
-			                        <li><a href="${pageContext.request.contextPath }/dev/addversion/${app.appId}">新增版本</a>
-			                        </li>
-			                        <li><a href="javascript:" class="upvlink" data-sn="${app.appLastversion }" data-id="${app.appId}">修改版本</a>
-			                        </li>
-			                        <li><a href="${pageContext.request.contextPath }/dev/updateAppInfo?appId=${app.appId}">修改</a>
-			                        </li>
-			                        <li><a href="#">查看</a>
-			                        </li>
-			                        <li><a class="deletelink" href="javascript:" data-id="${app.appId}" data-name="${app.appSoftwarename }">删除</a>
-			                        </li>
-			                      </ul>
+			                      <a href="${pageContext.request.contextPath }/backend/checkapp/${app.appId}" class="btn btn-default">审核</a>
 			                    </div>
                       		 </td>
                       		</tr>

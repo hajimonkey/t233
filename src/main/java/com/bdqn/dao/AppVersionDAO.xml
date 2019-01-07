@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bdqn.dao.AppVersionDAO">
+	<resultMap type="AppVersion" id="versionMap">
+	 <id property="verId" column="ver_id" javaType="int"/>
+	 <result property="verSn" column="ver_sn" javaType="String"/>
+	 <result property="verState" column="ver_state" javaType="int"/>
+	 <result property="verDesc" column="ver_desc" javaType="String"/>
+	 <result property="verApk" column="ver_apk" javaType="String"/>
+	 <result property="verAppId" column="ver_appid" javaType="int"/>
+	 <result property="verCreatedBy" column="ver_createby" javaType="int"/>
+	 <result property="verCreationDate" column="ver_creationdate" javaType="java.util.Date"/>
+	 <result property="verModifyBy" column="ver_modifyby" javaType="int"/>
+	 <result property="verModifyDate" column="ver_modifydate" javaType="java.util.Date"/>
+	 <result property="verStatename" column="statename" javaType="String"/>
+	 <result property="softwarename" column="app_softwarename" javaType="String"/>
+	 <result property="verSize" column="ver_size" javaType="int"/>
+	</resultMap>
+	<select id="findVersionByAppId" resultMap="versionMap">
+		SELECT av.*
+		,dd.`dict_text` statename
+		,ai.`app_softwarename` FROM appversion av
+		INNER JOIN data_dictionary dd
+		ON av.`ver_state` = dd.`dict_value`
+		AND dd.`dict_type` = '版本状态'
+		INNER JOIN appinfo ai 
+		ON av.`ver_appid` = ai.`app_id`
+		WHERE ver_appid = #{appId}
+	</select>
+	
+	<insert id="save" useGeneratedKeys="true">
+		INSERT INTO appversion
+		(ver_sn,ver_state,ver_desc
+		,ver_apk,ver_appid,ver_createdby,
+		ver_creationdate)
+		VALUES(#{verSn},#{verState},#{verDesc}
+		,#{verApk},#{verAppId},#{verCreatedBy}
+		,#{verCreationDate})
+	</insert>
+	
+	<select id="findBySnAndAppId" resultMap="versionMap">
+		SELECT * FROM appversion
+		WHERE ver_sn = #{verSn}
+		AND ver_appid = #{appId}
+	</select>
+	
+	<update id="update">
+		UPDATE appversion
+		SET ver_desc = #{verDesc}
+		,ver_size = #{verSize}
+		<if test="verApk != null">
+		,ver_apk = #{verApk}
+		</if>
+		,ver_modifyby = #{verModifyBy}
+		,ver_modifydate = #{verModifyDate}
+		WHERE ver_id = #{verId}
+	</update>
+</mapper>

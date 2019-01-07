@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +11,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>APP开发者平台</title>
+<title>APP后台管理员</title>
 <!-- Bootstrap -->
     <link href="${pageContext.request.contextPath }/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -23,6 +25,7 @@
     <link href="${pageContext.request.contextPath }/css/custom.min.css" rel="stylesheet">
 </head>
 <body class="nav-md footer_fixed">
+	<input type="hidden" id="path" value="${pageContext.request.contextPath }">
 	<div class="container body">
 	 <div class="main_container">
 		<div class="col-md-3 left_col">
@@ -52,9 +55,9 @@
               <div class="menu_section">
                 <h3>菜单</h3>
                 <ul class="nav side-menu">
-                  <li><a><i class="fa fa-home"></i> APP管理 <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-home"></i> APP审核 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                     <li><a href="${pageContext.request.contextPath }/backend/appList">APP审核</a></li>
+                      <li><a href="${pageContext.request.contextPath }/backend/appList">APP审核</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -92,11 +95,11 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="${pageContext.request.contextPath }/images/img.jpg" alt="">${loginUser.backendName }
+                    <img src="${pageContext.request.contextPath }/images/img.jpg" alt="">${loginUser.backendRoleName }
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="${pageContext.request.contextPath }/backend/logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                    <li><a href="${pageContext.request.contextPath }/dev/logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                   </ul>
                 </li>
               </ul>
@@ -104,31 +107,3 @@
           </div>
 
         </div>
-	 
-	 
-	 	 <div class="right_col" role="main">
-          <div class="">
-            <div class="page-title">
-              <div class="title_left">
-                <h3>欢迎你：${loginUser.backendName }|<b>角色：${loginUser.backendRoleName }</b> </h3>
-              </div>
-            </div>
-          </div>
-        </div>
-	 </div>
-	</div>
-	<!-- jQuery -->
-    <script src="${pageContext.request.contextPath }/js/jquery.min.js"></script>
-    <!-- Bootstrap -->
-    <script src="${pageContext.request.contextPath }/js/bootstrap.min.js"></script>
-    <!-- FastClick -->
-    <script src="${pageContext.request.contextPath }/js/fastclick.js"></script>
-    <!-- NProgress -->
-    <script src="${pageContext.request.contextPath }/js/nprogress.js"></script>
-    <!-- jQuery custom content scroller -->
-    <script src="${pageContext.request.contextPath }/js/jquery.mCustomScrollbar.concat.min.js"></script>
-
-    <!-- Custom Theme Scripts -->
-    <script src="${pageContext.request.contextPath }/js/custom.min.js"></script>
-</body>
-</html>

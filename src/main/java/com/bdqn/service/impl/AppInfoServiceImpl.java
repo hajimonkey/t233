@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bdqn.dao.AppInfoDAO;
@@ -43,6 +44,51 @@ public class AppInfoServiceImpl implements AppInfoService {
 	public List<AppCategory> findAppCateByPid(int pid) {
 		// TODO Auto-generated method stub
 		return appInfoDAO.findAppCateByPid(pid);
+	}
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
+	public int save(AppInfo appInfo) {
+		// TODO Auto-generated method stub
+		return appInfoDAO.save(appInfo);
+	}
+	@Override
+	@Transactional(readOnly=true)
+	public AppInfo findById(int appId) {
+		// TODO Auto-generated method stub
+		return appInfoDAO.findById(appId);
+	}
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
+	public int update(AppInfo appInfo) {
+		// TODO Auto-generated method stub
+		return appInfoDAO.update(appInfo);
+	}
+	@Override
+	@Transactional(readOnly=true)
+	public List<String> findVersionApk(int appId) {
+		// TODO Auto-generated method stub
+		return appInfoDAO.findVersionApk(appId);
+	}
+	@Override
+	public int deleteVersion(int appId) {
+		// TODO Auto-generated method stub
+		return appInfoDAO.deleteVersion(appId);
+	}
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
+	public int deleteApp(int appId) {
+		// TODO Auto-generated method stub
+		int count = deleteVersion(appId);
+		if(count > 0) {
+			count = appInfoDAO.deleteApp(appId);
+		}
+		return count;
+	}
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
+	public int updateAppState(int appId, int appState) {
+		// TODO Auto-generated method stub
+		return appInfoDAO.updateAppState(appId, appState);
 	}
 	
 	

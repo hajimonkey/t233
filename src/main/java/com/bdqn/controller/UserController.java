@@ -61,11 +61,12 @@ public class UserController {
 	@RequestMapping(value="/{state}/logout",method=RequestMethod.GET)
 	public String logout(
 			@PathVariable("state") String state,HttpServletRequest request) {
+		request.getSession().invalidate();
 		switch(state) {
 		case "backend":
-			return "backendLogin";
+			return "redirect:/backendLogin";
 		case "dev":
-			return "devLogin";
+			return "redirect:/devLogin";
 		default:
 			return "index";
 		}

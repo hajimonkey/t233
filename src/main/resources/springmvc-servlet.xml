@@ -64,6 +64,8 @@
 	 <mvc:resources location="/statics/js/" mapping="js/**"/>
 	 <mvc:resources location="/statics/fonts/" mapping="fonts/**"/>
 	 <mvc:resources location="/statics/localjs/" mapping="localjs/**"/>
+	 <mvc:resources location="/statics/apklogo/" mapping="apklogo/**"/>
+	 <mvc:resources location="/statics/apkfile/" mapping="apkfile/**"/>
 	<!-- <mvc:default-servlet-handler /> -->
 	<!-- <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
 		<property name="exceptionMappings">
@@ -76,7 +78,7 @@
 	 <!-- 声明上传文件解析器 -->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 	  <!-- 限制文件上传大小 -->
-	  <property name="maxUploadSize" value="5242880"></property>
+	  <property name="maxUploadSize" value="209715200"></property>
 	  <!-- 处理文件名编码 -->
 	  <property name="defaultEncoding" value="UTF-8"></property>
 	</bean>

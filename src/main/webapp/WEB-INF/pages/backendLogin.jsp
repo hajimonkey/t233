@@ -21,7 +21,7 @@
 	<div class="login_wrapper">
 		<div class="animate form login_form">
           <section class="login_content">
-            <form action="${pageContext.request.contextPath }/backendLogin" method="post">
+            <form  method="post">
               <h1>后台管理系统</h1>
               <div>
                 <input name="backendName" type="text" class="form-control" placeholder="Username" required="" />
